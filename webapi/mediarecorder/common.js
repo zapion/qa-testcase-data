@@ -42,6 +42,7 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
       console.log('onerror fired');
       console.log(evt);
       console.log(mediaRecorderAttributeDump(evt.target));
+      mediaRecorderState.innerHTML = mediaRecorderList[index].state;
       errorMsg.innerHTML = evt;
       lastErrorEvtFired = evt;
     };
@@ -50,6 +51,7 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
       console.log('onstop fired');
       console.log(evt);
       console.log(mediaRecorderAttributeDump(evt.target));
+      mediaRecorderState.innerHTML = mediaRecorderList[index].state;
       updateBlobURLUI(new Blob(mediaRecorder.blobData, { 'type' : mimeType }));
       evt.target.blobData = [];
     };
@@ -58,6 +60,7 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
       console.log('onwarning fired');
       console.log(evt);
       console.log(mediaRecorderAttributeDump(evt.target));
+      mediaRecorderState.innerHTML = mediaRecorderList[index].state;
     };
 
     mediaRecorderList.push(mediaRecorder);
