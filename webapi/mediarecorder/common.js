@@ -14,11 +14,22 @@ function updateBlobURLUI(blob) {
     var hrefElement = document.createElement('a');
     var breakLine = document.createElement('br');
 
+    var video = document.createElement('video');
+    video.width = 640;
+    video.height = 480;
+    _FReader = new FileReader();
+    _FReader.readAsDataURL(blob);
+    _FReader.onload = function (_FREvent) {
+        video.src = _FREvent.target.result;
+        video.play();
+    };
+
     hrefElement.setAttribute('href', blobURL);
     hrefElement.textContent = 'Download Data Available';
 
     blobURLUI.appendChild(hrefElement);
     blobURLUI.appendChild(breakLine);
+    blobURLUI.appendChild(video);
   }
 }
 
@@ -29,13 +40,21 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
 
   for(var i = 0; i < numberOfRecorders; i++){
     var mediaRecorder = new MediaRecorder(stream);
-    mediaRecorder.blobData = [];
+    mediaRecorder.index = i;
+    blobData[i] = [];
 
     mediaRecorder.ondataavailable = function(evt) {
       console.log('ondataavailable fired');
       console.log(evt);
       console.log(mediaRecorderAttributeDump(evt.target));
-      evt.target.blobData.push(evt.data);
+      blobData[evt.target.index].push(evt.data);
+    };
+
+    mediaRecorder.onstart = function(evt) {
+      console.log('onstart fired');
+      console.log(evt);
+      console.log(mediaRecorderAttributeDump(evt.target));
+      document.getElementsByTagName('label')[evt.target.index].innerHTML = evt.target.state;
     };
 
     mediaRecorder.onerror = function(evt) {
@@ -50,6 +69,7 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
       console.log('onstop fired');
       console.log(evt);
       console.log(mediaRecorderAttributeDump(evt.target));
+      document.getElementsByTagName('label')[evt.target.index].innerHTML = evt.target.state;
       updateBlobURLUI(new Blob(evt.target.blobData, { 'type' : mimeType }));
       evt.target.blobData = [];
     };
