@@ -222,7 +222,7 @@ function installPackagedApp() {
 }
 
 function installHostedApp() {
-  var request = navigator.mozApps.install('http://mozilla.github.io/qa-testcase-data/webapi/mediarecorder/manifest.webapp');
+  var request = navigator.mozApps.install('http://mozilla.github.io/qa-testcase-data/webapi/mediarecorder/hosted.manifest');
 
   request.onsuccess = function(e) {
     console.log('Installed successfully');
