@@ -25,7 +25,7 @@
         <span>Microphone</span>
       </div>
       <div>
-        <span>Mime Type</span>
+        <span>gUM Mime Type</span>
         <select id="gUMMimeType">
           <option value="audio/ogg; codecs=opus">audio/ogg; codecs=opus</option>
           <option value="video/webm">video/webm</option>
@@ -36,6 +36,14 @@
         <div>
           <span>Number of Recorders</span>
           <input type="text" id="numberOfGumRecorders">
+        </div>
+        <div>
+          <span>Output Mime Type</span>
+          <select id="recMimeType">
+            <option value="audio/ogg; codecs=opus">audio/ogg; codecs=opus</option>
+            <option value="video/webm">video/webm</option>
+            <option value="video/mp4">video/mp4</option>
+          </select>
         </div>
         <div>
           <input type="submit" id="setupGUMStream" value="Setup">

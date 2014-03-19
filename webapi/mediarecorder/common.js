@@ -41,7 +41,8 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
   if(!numberOfRecorders) {
     numberOfRecorders = 1;
   }
-
+  
+  var recMimeType = getElementById('recMimeType').value;
   for(var i = 0; i < numberOfRecorders; i++){
     var mediaRecorder = new MediaRecorder(stream);
     mediaRecorder.blobData = [];
@@ -65,7 +66,7 @@ function setupMediaRecorder(stream, numberOfRecorders, mimeType) {
       console.log('onstop fired');
       console.log(evt);
       console.log(mediaRecorderAttributeDump(evt.target));
-      updateBlobURLUI(new Blob(evt.target.blobData, { 'type' : mimeType }));
+      updateBlobURLUI(new Blob(evt.target.blobData, { 'type' : recMimeType }));
       evt.target.blobData = [];
     };
 
